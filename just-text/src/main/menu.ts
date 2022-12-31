@@ -4,6 +4,7 @@ import {
   shell,
   BrowserWindow,
   MenuItemConstructorOptions,
+  dialog,
 } from 'electron';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
@@ -89,11 +90,12 @@ export default class MenuBuilder {
         submenu: [
           {
             label: '&Open',
-            accelerator: 'Ctrl+O',
+            accelerator: 'CmdOrCtrl+O',
+            click: () => { this.openFile() }, 
           },
           {
             label: '&Close',
-            accelerator: 'Ctrl+W',
+            accelerator: 'CmdOrCtrl+W',
             click: () => {
               this.mainWindow.close();
             },
@@ -206,6 +208,10 @@ export default class MenuBuilder {
         : subMenuViewProd;
 
     return [subMenuAbout, subMenuFile, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
+  }
+
+  openFile() {
+    dialog.showOpenDialog({properties:['openFile', 'showHiddenFiles'], title: "Open File", })
   }
 
   buildDefaultTemplate() {
