@@ -84,6 +84,22 @@ export default class MenuBuilder {
         },
       ],
     };
+    const subMenuFile: DarwinMenuItemConstructorOptions = {
+        label: '&File',
+        submenu: [
+          {
+            label: '&Open',
+            accelerator: 'Ctrl+O',
+          },
+          {
+            label: '&Close',
+            accelerator: 'Ctrl+W',
+            click: () => {
+              this.mainWindow.close();
+            },
+          },
+        ],
+      };
     const subMenuEdit: DarwinMenuItemConstructorOptions = {
       label: 'Edit',
       submenu: [
@@ -189,7 +205,7 @@ export default class MenuBuilder {
         ? subMenuViewDev
         : subMenuViewProd;
 
-    return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
+    return [subMenuAbout, subMenuFile, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
   }
 
   buildDefaultTemplate() {
