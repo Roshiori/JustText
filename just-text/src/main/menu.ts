@@ -55,7 +55,7 @@ export default class MenuBuilder {
 
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {
-      label: 'Electron',
+      label: 'JustText',
       submenu: [
         {
           label: 'About ElectronReact',
@@ -86,22 +86,27 @@ export default class MenuBuilder {
       ],
     };
     const subMenuFile: DarwinMenuItemConstructorOptions = {
-        label: '&File',
-        submenu: [
-          {
-            label: '&Open',
-            accelerator: 'CmdOrCtrl+O',
-            click: () => { this.openFile() }, 
+      label: '&File',
+      submenu: [
+        {
+          label: '&Open',
+          accelerator: 'CmdOrCtrl+O',
+          click: () => {
+            dialog.showOpenDialog({
+              properties: ['openFile', 'showHiddenFiles'],
+              title: 'Open File',
+            });
           },
-          {
-            label: '&Close',
-            accelerator: 'CmdOrCtrl+W',
-            click: () => {
-              this.mainWindow.close();
-            },
+        },
+        {
+          label: '&Close',
+          accelerator: 'CmdOrCtrl+W',
+          click: () => {
+            this.mainWindow.close();
           },
-        ],
-      };
+        },
+      ],
+    };
     const subMenuEdit: DarwinMenuItemConstructorOptions = {
       label: 'Edit',
       submenu: [
@@ -207,11 +212,21 @@ export default class MenuBuilder {
         ? subMenuViewDev
         : subMenuViewProd;
 
-    return [subMenuAbout, subMenuFile, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
+    return [
+      subMenuAbout,
+      subMenuFile,
+      subMenuEdit,
+      subMenuView,
+      subMenuWindow,
+      subMenuHelp,
+    ];
   }
 
   openFile() {
-    dialog.showOpenDialog({properties:['openFile', 'showHiddenFiles'], title: "Open File", })
+    dialog.showOpenDialog({
+      properties: ['openFile', 'showHiddenFiles'],
+      title: 'Open File',
+    });
   }
 
   buildDefaultTemplate() {
@@ -222,6 +237,9 @@ export default class MenuBuilder {
           {
             label: '&Open',
             accelerator: 'Ctrl+O',
+            click: () => {
+              this.openFile();
+            },
           },
           {
             label: '&Close',
