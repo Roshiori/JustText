@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import fs from 'fs'
 import './App.css';
 
-const Hello = () => {
+const Text = () => {
 
   const [text, setText] = useState('');
+  let evt;
+
+  if(event.key == 's'){
+    console.log("pressed s");
+    evt = evt + "Pressed s";
+  }
+
 
 
   return (
@@ -23,6 +30,7 @@ const Hello = () => {
           />
         </div>
         <p>text: {text}</p>
+        <p>event: {evt}</p>
       </div>
     </React.Fragment>
   );
@@ -32,7 +40,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Hello />} />
+        <Route path="/" element={<Text />} />
       </Routes>
     </Router>
   );
